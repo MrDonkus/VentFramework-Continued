@@ -46,10 +46,10 @@ internal static class RpcManager
         if (player != null && player.PlayerId == PlayerControl.LocalPlayer.PlayerId) return;
         string sender = "Client: " + (player == null ? "?" : player.GetClientId());
         string receiverType = AmongUsClient.Instance.AmHost ? "Host" : "NonHost";
-        log.Info($"Custom RPC Received ({customId}) from \"{sender}\" as {receiverType}", "VentLib");
+        log.Info($"Custom RPC Received ({customId}) from \"{sender}\" as {receiverType}");
         if (!Vents.RpcBindings.TryGetValue(customId, out List<ModRPC>? rpcs))
         {
-            log.Warn($"Received Unknown RPC: {customId}", "VentLib");
+            log.Warn($"Received Unknown RPC: {customId}");
             return;
         }
 

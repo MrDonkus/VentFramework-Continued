@@ -119,13 +119,13 @@ internal class DetouredSender
         string senderString = AmongUsClient.Instance.AmHost ? "Host" : "NonHost";
         int clientId = PlayerControl.LocalPlayer.GetClientId();
         if (targets != null) {
-            log.Debug($"[{localSendCount}::{uuid}::{RpcHookHelper.GlobalSendCount}](Client: {clientId}) Sending RPC ({callId}) as {senderString} to {targets.StrJoin()} | {senders}", "DetouredSender");
+            log.Debug($"[{localSendCount}::{uuid}::{RpcHookHelper.GlobalSendCount}](Client: {clientId}) Sending RPC ({callId}) as {senderString} to {targets.StrJoin()} | {senders}");
             monoRpc.SendInclusive(blockedClients == null ? targets : targets.Except(blockedClients).ToArray());
         } else if (blockedClients != null) {
-            log.Debug($"[{localSendCount}::{uuid}::{RpcHookHelper.GlobalSendCount}](Client: {clientId}) Sending RPC ({callId}) as {senderString} to all except {blockedClients.StrJoin()} | {senders}", "DetouredSender");
+            log.Debug($"[{localSendCount}::{uuid}::{RpcHookHelper.GlobalSendCount}](Client: {clientId}) Sending RPC ({callId}) as {senderString} to all except {blockedClients.StrJoin()} | {senders}");
             monoRpc.SendExcluding(blockedClients);
         } else {
-            log.Debug($"[{localSendCount}::{uuid}::{RpcHookHelper.GlobalSendCount}] (Client: {clientId}) Sending RPC ({callId}) as {senderString} to all | {senders}", "DetouredSender");
+            log.Debug($"[{localSendCount}::{uuid}::{RpcHookHelper.GlobalSendCount}] (Client: {clientId}) Sending RPC ({callId}) as {senderString} to all | {senders}");
             monoRpc.Send();
         }
     }

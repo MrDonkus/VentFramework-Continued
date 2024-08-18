@@ -19,12 +19,9 @@ using VentLib.Utilities.Attributes;
 using VentLib.Utilities.Extensions;
 using VentLib.Utilities.Harmony;
 using VentLib.Version;
-using xCloud;
 
 namespace VentLib;
 
-//if the client has an unsupported addon it's rpcs get disabled completely CHECK!
-//if the client is missing an addon then the host's rpcs from that addon to that client get disabled
 [BepInAutoPlugin("com.discussions.VentLib")]
 [BepInProcess("Among Us.exe")]
 public partial class Vents : BasePlugin
@@ -104,7 +101,7 @@ public partial class Vents : BasePlugin
             .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
             .Where(m => m.GetCustomAttribute<ModRPCAttribute>() != null).ToList();
 
-        NoDepLogger.Info($"Registering {methods.Count} methods from {assembly.GetName().Name}", "VentLib");
+        NoDepLogger.Info($"Registering {methods.Count} RPCS from {assembly.GetName().Name}", "VentLib");
         foreach (var method in methods)
         {
             ModRPCAttribute attribute = method.GetCustomAttribute<ModRPCAttribute>()!;
@@ -173,6 +170,7 @@ public partial class Vents : BasePlugin
 [Flags]
 public enum VentControlFlag
 {
-    AllowedReceiver = 1,
-    AllowedSender = 2,
+    Denied = 1,
+    AllowedReceiver = 2,
+    AllowedSender = 4,
 }

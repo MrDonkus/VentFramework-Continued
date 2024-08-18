@@ -58,7 +58,7 @@ public class ModRPC
 
     public void InvokeTrampoline(params object[] args)
     {
-        log.Log(LogLevel.All,$"Calling trampoline \"{trampoline.FullDescription()}\" with args: {args.StrJoin()}", "RPCTrampoline");
+        log.Log(LogLevel.All,$"RPCTrampoline - Calling trampoline \"{trampoline.FullDescription()}\" with args: {args.StrJoin()}");
         trampoline.Invoke(instanceSupplier(), args);
     }
 }
