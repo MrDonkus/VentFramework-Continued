@@ -17,8 +17,7 @@ public static class SearchBarController
     {
         get 
         {
-            if (!Enabled) return "";
-            if (searchBarObject.Exists()) return searchBarObject.Get().Text.ToLower();
+            if (Enabled && searchBarObject.Exists()) return searchBarObject.Get().Text.ToLower();
             else return "";
         }
     }

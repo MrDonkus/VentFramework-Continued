@@ -160,7 +160,9 @@ public static class RoleOptionController
             }
         });
         _renderer.SetHeight(-0.1f);
-        CurrentTab.PreRender().Where(o => o.name.ToLower().Contains(SearchBarController.CurrentText)).ForEach((option, index) => RenderCheck(option, index, menu));
+        string currentText = SearchBarController.CurrentText;
+        if (currentText == "") CurrentTab.PreRender().ForEach((option, index) => RenderCheck(option, index, menu));
+        else CurrentTab.GetOptions().Where(o => o.name.ToLower().Contains(currentText)).SelectMany(opt => opt.GetDisplayedMembers()).ForEach((option, index) => RenderCheck(option, index, menu));
         _renderer.PostRender(menu);
     }
 
