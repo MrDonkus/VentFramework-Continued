@@ -17,6 +17,7 @@ using VentLib.Utilities.Extensions;
 using VentLib.Utilities.Collections;
 using VentLib.Options.UI.Tabs.Vanilla;
 using VentLib.Options.UI.Controllers.Search;
+using Rewired.Utils;
 
 namespace VentLib.Options.UI.Controllers;
 
@@ -102,6 +103,7 @@ public static class RoleOptionController
         menu.roleTabs.Add(menu.AllButton);
 
         OptionExtensions.categoryHeaders.ForEach(header => {
+            if (header.IsNullOrDestroyed() || !UnityEngine.Object.IsNativeObjectAlive(header)) return;
             header.gameObject.SetActive(header.name != "LotusCategory"); 
         });
         AllTabs(true).ForEach(tab => tab.Setup(_lastInitialized.Get()));
@@ -137,6 +139,7 @@ public static class RoleOptionController
         if (!Enabled) return;
         if (CurrentTab == null) {
             // All tab detection.
+            menu.scrollBar.ContentYBounds.max = _renderer.GetChancesHeight();
             return;
         }
         CurrentTab.GetOptions().ForEach(child => {

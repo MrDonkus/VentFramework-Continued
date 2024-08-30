@@ -15,6 +15,7 @@ using VentLib.Utilities.Optionals;
 using VentLib.Utilities.Attributes;
 using VentLib.Utilities.Extensions;
 using VentLib.Options.UI.Controllers.Search;
+using Rewired.Utils;
 
 namespace VentLib.Options.UI.Controllers;
 
@@ -80,6 +81,7 @@ public static class SettingsOptionController
             ModSettingsOpened = false;
             button.SelectButton(false);
             OptionExtensions.categoryHeaders.ForEach(header => {
+                if (header.IsNullOrDestroyed() || !UnityEngine.Object.IsNativeObjectAlive(header)) return;
                 header.gameObject.SetActive(header.name != "LotusCategory"); 
             });
         }));
@@ -88,6 +90,7 @@ public static class SettingsOptionController
         gameSettingsButton.OnClick.AddListener((Action)(() => {
             ModSettingsOpened = false;
             OptionExtensions.categoryHeaders.ForEach(header => {
+                if (header.IsNullOrDestroyed() || !UnityEngine.Object.IsNativeObjectAlive(header)) return;
                 header.gameObject.SetActive(header.name != "LotusCategory"); 
             });
             if (menu.GameSettingsTab.Children != null) {

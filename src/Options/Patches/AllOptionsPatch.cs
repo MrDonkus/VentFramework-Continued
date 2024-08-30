@@ -63,22 +63,19 @@ public static class GameOptionsMenuStartPatch
         log.Debug($"(Initialize) Mod Settings Opened: {SettingsOptionController.ModSettingsOpened}");
         if (!SettingsOptionController.ModSettingsOpened) 
         {
-            if (InnerslothHeight != null) {
-                __instance.scrollBar.SetYBoundsMax((byte)InnerslothHeight);
+            if (InnerslothHeight.HasValue) {
+                __instance.scrollBar.SetYBoundsMax(InnerslothHeight.Value);
             }
             __instance.scrollBar.ScrollToTop();
             return;
         }
-        if (InnerslothHeight == null) {
+        if (!InnerslothHeight.HasValue) {
             InnerslothHeight = __instance.scrollBar.ContentYBounds.max;
         }
         OptionExtensions.categoryHeaders.RemoveAll(header => {
-            if (header.IsNullOrDestroyed()) {
-                return true;
-            } else {{
-                header.gameObject.SetActive(header.name == "ModdedCategory"); 
-                return false;
-            }}
+            if (header.IsNullOrDestroyed() || !Object.IsNativeObjectAlive(header)) return true;
+            header.gameObject.SetActive(header.name == "ModdedCategory"); 
+            return false;
         });
         if (__instance.Children != null) {
             __instance.Children.ToArray().ForEach(child => {

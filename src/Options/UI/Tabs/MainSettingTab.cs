@@ -30,7 +30,7 @@ public class MainSettingTab
 
     public List<GameOption> PreRender() => Options.SelectMany(opt => opt.GetDisplayedMembers()).ToList();
 
-    public virtual float StartHeight() => 2.21f; // Vanilla AU starts around 0.8 i think. 2.21 is like the very top of the options.
+    public virtual float StartHeight() => 2.21f; // Vanilla AU starts at 0.713f. 2.21 is like the very top of the options.
     
     public List<GameOption> GetOptions() => Options;
 

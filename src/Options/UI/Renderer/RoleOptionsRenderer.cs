@@ -41,7 +41,7 @@ public class RoleOptionsRenderer: IRoleOptionRender
             if (tb is GameOptionTab) {
                 GameOptionTab gameOptionTab = (GameOptionTab)tb;
                 name = gameOptionTab.name;
-                colors = gameOptionTab.HeaderColors().OrElseSet(() => GetColorsFromName(name));
+                colors = gameOptionTab.HeaderColors().OrElseGet(() => GetColorsFromName(name));
             } else {
                 name = nameof(tb) + " Settings";
                 colors = GetColorsFromName(name);
@@ -82,8 +82,8 @@ public class RoleOptionsRenderer: IRoleOptionRender
             });
             if (index + 1 != tabs.Count()) Height -= 0.22f;
         });
-        Height += -0.43f;
-        ChancesHeight = -Height;
+        // Height += -0.43f;
+        ChancesHeight = -Height - 1.65f;
         Height = 0f;
     }
 
@@ -171,7 +171,7 @@ public class RoleOptionsRenderer: IRoleOptionRender
     {
     }
 
-    public virtual Color[] GetColorsFromName(string name) => name.ToLower().Contains("impostor") 
+    public virtual Color[] GetColorsFromName(string name) => (name.ToLower().Contains("impostor") | name.ToLower().Contains("imposter"))
         ? new Color[] {Palette.ImpostorRoleHeaderTextRed, Palette.ImpostorRoleHeaderRed, Palette.ImpostorRoleHeaderVeryDarkRed, Palette.ImpostorRoleHeaderDarkRed}
         : new Color[] {Palette.CrewmateRoleHeaderTextBlue, Palette.CrewmateRoleHeaderBlue, Palette.CrewmateRoleHeaderVeryDarkBlue, Palette.CrewmateRoleHeaderDarkBlue};
 
