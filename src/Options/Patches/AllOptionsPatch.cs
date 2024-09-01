@@ -11,16 +11,6 @@ using VentLib.Options.UI.Controllers;
 namespace VentLib.Options.Patches;
 
 [HarmonyPriority(Priority.First)]
-[HarmonyPatch(typeof(GameSettingMenu), nameof(GameSettingMenu.Start))]
-public static class GameSettingsStartPatch
-{
-    // Unlocks map/impostor amount changing in online (for testing on your custom servers)
-    // Changed to be able to change the map in online mode without having to re-establish the room.
-    public static void Prefix(GameSettingMenu __instance) => __instance.GameSettingsTab.HideForOnline = new Il2CppReferenceArray<Transform>(0);
-    public static void Postfix(GameSettingMenu __instance) => SettingsOptionController.Start(__instance);
-}
-
-[HarmonyPriority(Priority.First)]
 [HarmonyPatch(typeof(RolesSettingsMenu), nameof(RolesSettingsMenu.OpenChancesTab))]
 public static class OpenChancesTabPatch
 {
